@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 25.0.1706.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YoloSoccerApp.API", "YoloSoccerApp.API.csproj", "{423990B3-1437-4FB3-939F-D5B79CE9E708}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YoloSoccerApp.Logic", "..\YoloSoccerApp.Logic\YoloSoccerApp.Logic.csproj", "{F4E358C9-AACE-4D67-A348-B6A100B1E58F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YoloSoccerApp.Data", "..\YoloSoccerApp.Data\YoloSoccerApp.Data.csproj", "{13359A4F-5F49-4DA1-B3A4-A56D65E40675}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{423990B3-1437-4FB3-939F-D5B79CE9E708}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{423990B3-1437-4FB3-939F-D5B79CE9E708}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{423990B3-1437-4FB3-939F-D5B79CE9E708}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{423990B3-1437-4FB3-939F-D5B79CE9E708}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4E358C9-AACE-4D67-A348-B6A100B1E58F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4E358C9-AACE-4D67-A348-B6A100B1E58F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4E358C9-AACE-4D67-A348-B6A100B1E58F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4E358C9-AACE-4D67-A348-B6A100B1E58F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13359A4F-5F49-4DA1-B3A4-A56D65E40675}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13359A4F-5F49-4DA1-B3A4-A56D65E40675}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13359A4F-5F49-4DA1-B3A4-A56D65E40675}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13359A4F-5F49-4DA1-B3A4-A56D65E40675}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {293360AF-DE16-4675-BFA4-E8CB2D0C5DFC}
+	EndGlobalSection
+EndGlobal

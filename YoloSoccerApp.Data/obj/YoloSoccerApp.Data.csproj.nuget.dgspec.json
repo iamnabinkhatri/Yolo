@@ -1,0 +1,132 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/nabinkhatri/Documents/Programming/C#/dotnet-projects/YoloSoccerApp/YoloSoccerApp.Data/YoloSoccerApp.Data.csproj": {}
+  },
+  "projects": {
+    "/Users/nabinkhatri/Documents/Programming/C#/dotnet-projects/YoloSoccerApp/YoloSoccerApp.Data/YoloSoccerApp.Data.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/nabinkhatri/Documents/Programming/C#/dotnet-projects/YoloSoccerApp/YoloSoccerApp.Data/YoloSoccerApp.Data.csproj",
+        "projectName": "YoloSoccerApp.Data",
+        "projectPath": "/Users/nabinkhatri/Documents/Programming/C#/dotnet-projects/YoloSoccerApp/YoloSoccerApp.Data/YoloSoccerApp.Data.csproj",
+        "packagesPath": "/Users/nabinkhatri/.nuget/packages/",
+        "outputPath": "/Users/nabinkhatri/Documents/Programming/C#/dotnet-projects/YoloSoccerApp/YoloSoccerApp.Data/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/nabinkhatri/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/nabinkhatri/Documents/Programming/C#/dotnet-projects/YoloSoccerApp/YoloSoccerApp.Logic/YoloSoccerApp.Logic.csproj": {
+                "projectPath": "/Users/nabinkhatri/Documents/Programming/C#/dotnet-projects/YoloSoccerApp/YoloSoccerApp.Logic/YoloSoccerApp.Logic.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Cryptography.KeyDerivation": {
+              "target": "Package",
+              "version": "[9.0.6, )"
+            },
+            "Microsoft.Data.SqlClient": {
+              "target": "Package",
+              "version": "[6.0.2, )"
+            },
+            "Microsoft.Extensions.Logging.Abstractions": {
+              "target": "Package",
+              "version": "[9.0.6, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.411/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/nabinkhatri/Documents/Programming/C#/dotnet-projects/YoloSoccerApp/YoloSoccerApp.Logic/YoloSoccerApp.Logic.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/nabinkhatri/Documents/Programming/C#/dotnet-projects/YoloSoccerApp/YoloSoccerApp.Logic/YoloSoccerApp.Logic.csproj",
+        "projectName": "YoloSoccerApp.Logic",
+        "projectPath": "/Users/nabinkhatri/Documents/Programming/C#/dotnet-projects/YoloSoccerApp/YoloSoccerApp.Logic/YoloSoccerApp.Logic.csproj",
+        "packagesPath": "/Users/nabinkhatri/.nuget/packages/",
+        "outputPath": "/Users/nabinkhatri/Documents/Programming/C#/dotnet-projects/YoloSoccerApp/YoloSoccerApp.Logic/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/nabinkhatri/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.411/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

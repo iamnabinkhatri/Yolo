@@ -1,0 +1,41 @@
+﻿<Properties StartupConfiguration="{423990B3-1437-4FB3-939F-D5B79CE9E708}|https">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.YoloSoccerApp.API PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="../YoloSoccerApp.Data/UserSqlRepository.cs">
+    <Files>
+      <File FileName="Program.cs" Line="9" Column="52" />
+      <File FileName="../YoloSoccerApp.Logic/Users.cs" Line="2" Column="1" />
+      <File FileName="../YoloSoccerApp.Data/IUserRepository.cs" Line="11" Column="25" />
+      <File FileName="../YoloSoccerApp.Data/UserSqlRepository.cs" Line="132" Column="1" />
+      <File FileName="Controllers/UserController.cs" Line="69" Column="40" />
+      <File FileName="appsettings.Development.json" Line="11" Column="4" />
+      <File FileName="appsettings.json" Line="13" Column="1" />
+      <File FileName="../YoloSoccerApp.Data/PasswordHasher.cs" Line="26" Column="71" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="YoloSoccerApp.API" expanded="True">
+            <Node name="YoloSoccerApp.API" expanded="True">
+              <Node name="Controllers" expanded="True" />
+              <Node name="Properties" expanded="True" />
+              <Node name="appsettings.json" expanded="True" />
+            </Node>
+            <Node name="YoloSoccerApp.Data" expanded="True">
+              <Node name="UserSqlRepository.cs" selected="True" />
+            </Node>
+            <Node name="YoloSoccerApp.Logic" expanded="True" />
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+</Properties>

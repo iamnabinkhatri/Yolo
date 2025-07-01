@@ -1,0 +1,7 @@
+﻿@YoloSoccerApp.API_HostAddress = http://localhost:5148
+
+GET {{YoloSoccerApp.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+

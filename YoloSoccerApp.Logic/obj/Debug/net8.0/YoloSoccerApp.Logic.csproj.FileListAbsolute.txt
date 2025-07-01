@@ -1,0 +1,11 @@
+/Users/nabinkhatri/Documents/Programming/C#/dotnet-projects/YoloSoccerApp/YoloSoccerApp.Logic/obj/Debug/net8.0/YoloSoccerApp.Logic.GeneratedMSBuildEditorConfig.editorconfig
+/Users/nabinkhatri/Documents/Programming/C#/dotnet-projects/YoloSoccerApp/YoloSoccerApp.Logic/obj/Debug/net8.0/YoloSoccerApp.Logic.AssemblyInfoInputs.cache
+/Users/nabinkhatri/Documents/Programming/C#/dotnet-projects/YoloSoccerApp/YoloSoccerApp.Logic/obj/Debug/net8.0/YoloSoccerApp.Logic.AssemblyInfo.cs
+/Users/nabinkhatri/Documents/Programming/C#/dotnet-projects/YoloSoccerApp/YoloSoccerApp.Logic/obj/Debug/net8.0/YoloSoccerApp.Logic.csproj.CoreCompileInputs.cache
+/Users/nabinkhatri/Documents/Programming/C#/dotnet-projects/YoloSoccerApp/YoloSoccerApp.Logic/bin/Debug/net8.0/YoloSoccerApp.Logic.deps.json
+/Users/nabinkhatri/Documents/Programming/C#/dotnet-projects/YoloSoccerApp/YoloSoccerApp.Logic/bin/Debug/net8.0/YoloSoccerApp.Logic.dll
+/Users/nabinkhatri/Documents/Programming/C#/dotnet-projects/YoloSoccerApp/YoloSoccerApp.Logic/bin/Debug/net8.0/YoloSoccerApp.Logic.pdb
+/Users/nabinkhatri/Documents/Programming/C#/dotnet-projects/YoloSoccerApp/YoloSoccerApp.Logic/obj/Debug/net8.0/YoloSoccerApp.Logic.dll
+/Users/nabinkhatri/Documents/Programming/C#/dotnet-projects/YoloSoccerApp/YoloSoccerApp.Logic/obj/Debug/net8.0/refint/YoloSoccerApp.Logic.dll
+/Users/nabinkhatri/Documents/Programming/C#/dotnet-projects/YoloSoccerApp/YoloSoccerApp.Logic/obj/Debug/net8.0/YoloSoccerApp.Logic.pdb
+/Users/nabinkhatri/Documents/Programming/C#/dotnet-projects/YoloSoccerApp/YoloSoccerApp.Logic/obj/Debug/net8.0/ref/YoloSoccerApp.Logic.dll

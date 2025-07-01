@@ -1,0 +1,15 @@
+/Users/nabinkhatri/Documents/Programming/C#/dotnet-projects/YoloSoccerApp/YoloSoccerApp.Data/bin/Debug/net8.0/YoloSoccerApp.Data.deps.json
+/Users/nabinkhatri/Documents/Programming/C#/dotnet-projects/YoloSoccerApp/YoloSoccerApp.Data/bin/Debug/net8.0/YoloSoccerApp.Data.dll
+/Users/nabinkhatri/Documents/Programming/C#/dotnet-projects/YoloSoccerApp/YoloSoccerApp.Data/bin/Debug/net8.0/YoloSoccerApp.Data.pdb
+/Users/nabinkhatri/Documents/Programming/C#/dotnet-projects/YoloSoccerApp/YoloSoccerApp.Data/bin/Debug/net8.0/YoloSoccerApp.Logic.dll
+/Users/nabinkhatri/Documents/Programming/C#/dotnet-projects/YoloSoccerApp/YoloSoccerApp.Data/bin/Debug/net8.0/YoloSoccerApp.Logic.pdb
+/Users/nabinkhatri/Documents/Programming/C#/dotnet-projects/YoloSoccerApp/YoloSoccerApp.Data/obj/Debug/net8.0/YoloSoccerApp.Data.csproj.AssemblyReference.cache
+/Users/nabinkhatri/Documents/Programming/C#/dotnet-projects/YoloSoccerApp/YoloSoccerApp.Data/obj/Debug/net8.0/YoloSoccerApp.Data.GeneratedMSBuildEditorConfig.editorconfig
+/Users/nabinkhatri/Documents/Programming/C#/dotnet-projects/YoloSoccerApp/YoloSoccerApp.Data/obj/Debug/net8.0/YoloSoccerApp.Data.AssemblyInfoInputs.cache
+/Users/nabinkhatri/Documents/Programming/C#/dotnet-projects/YoloSoccerApp/YoloSoccerApp.Data/obj/Debug/net8.0/YoloSoccerApp.Data.AssemblyInfo.cs
+/Users/nabinkhatri/Documents/Programming/C#/dotnet-projects/YoloSoccerApp/YoloSoccerApp.Data/obj/Debug/net8.0/YoloSoccerApp.Data.csproj.CoreCompileInputs.cache
+/Users/nabinkhatri/Documents/Programming/C#/dotnet-projects/YoloSoccerApp/YoloSoccerApp.Data/obj/Debug/net8.0/YoloSocc.F29F9AB3.Up2Date
+/Users/nabinkhatri/Documents/Programming/C#/dotnet-projects/YoloSoccerApp/YoloSoccerApp.Data/obj/Debug/net8.0/YoloSoccerApp.Data.dll
+/Users/nabinkhatri/Documents/Programming/C#/dotnet-projects/YoloSoccerApp/YoloSoccerApp.Data/obj/Debug/net8.0/refint/YoloSoccerApp.Data.dll
+/Users/nabinkhatri/Documents/Programming/C#/dotnet-projects/YoloSoccerApp/YoloSoccerApp.Data/obj/Debug/net8.0/YoloSoccerApp.Data.pdb
+/Users/nabinkhatri/Documents/Programming/C#/dotnet-projects/YoloSoccerApp/YoloSoccerApp.Data/obj/Debug/net8.0/ref/YoloSoccerApp.Data.dll
