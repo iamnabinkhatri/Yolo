@@ -1,9 +1,7 @@
-﻿using System;
-//using System.Data.SqlClient;
+﻿
 using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Logging;
 using YoloSoccerApp.Logic;
-using System.Text;
+using Microsoft.Extensions.Logging;
 
 namespace YoloSoccerApp.Data
 {
@@ -21,8 +19,6 @@ namespace YoloSoccerApp.Data
 
         public async Task<IEnumerable<Users>> GetAllUsersAsync()
         {
-
-
             using SqlConnection connection = new SqlConnection(this._connectionString);
             await connection.OpenAsync();
             string query = @"SELECT * FROM [yolo].[user];";
@@ -43,8 +39,9 @@ namespace YoloSoccerApp.Data
                 int zipCode = (int)read["zipCode"];
                 string state = read["state"].ToString() ?? "";
                 string country = read["country"].ToString() ?? "";
-
-                users.Add(new Users(Id,email,username,password,firstName,lastName,middleName,phoneNo,city,zipCode,state,country));
+                int roleId = (int)read["roleId"];
+                UserRole userRole = new UserRole(roleId, "");
+                users.Add(new Users(Id,email,username,password,firstName,lastName,middleName,phoneNo,city,zipCode,state,country, userRole));
             }
             await connection.CloseAsync();
             return users; 
@@ -54,10 +51,10 @@ namespace YoloSoccerApp.Data
             
         {
             string? password = PasswordHasher.HashPassword(user._password);
-            Console.WriteLine("ADD password" + password);
-            using SqlConnection connection = new SqlConnection(this._connectionString);
+            UserRole userRole = new UserRole();
+             using SqlConnection connection = new SqlConnection(this._connectionString);
             await connection.OpenAsync();
-            string query = @"INSERT INTO [yolo].[user] (email,username,password,firstName,lastName,middleName,phoneNo,city,zipCode,state,country) VALUES (@email,@username,@password,@firstName,@lastName,@middleName,@phoneNo,@city,@zipCode,@state,@country);";
+            string query = @"INSERT INTO [yolo].[user] (email,username,password,firstName,lastName,middleName,phoneNo,city,zipCode,state,country,roleId) VALUES (@email,@username,@password,@firstName,@lastName,@middleName,@phoneNo,@city,@zipCode,@state,@country, @userRole);";
             using SqlCommand cmd = new SqlCommand(query, connection);
             cmd.Parameters.AddWithValue("@email", user._email);
             cmd.Parameters.AddWithValue("@password", password);
@@ -70,6 +67,7 @@ namespace YoloSoccerApp.Data
             cmd.Parameters.AddWithValue("@zipCode", user._zipCode);
             cmd.Parameters.AddWithValue("@state", user._state);
             cmd.Parameters.AddWithValue("@country", user._country);
+            cmd.Parameters.AddWithValue("@userRole", user._roleId?._id);
             await cmd.ExecuteNonQueryAsync();
             await connection.CloseAsync();
 
@@ -154,13 +152,10 @@ namespace YoloSoccerApp.Data
                         result = true;
                     }
                 }
-                
             }
             await connection.CloseAsync();
             return result;
         }
-
-        
 
         public async Task<bool> CheckUserExists(string username)
         {

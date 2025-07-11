@@ -1,12 +1,10 @@
 ﻿using Microsoft.AspNetCore.DataProtection.Repositories;
-using System;
 using YoloSoccerApp.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 //connection string
-string connecitonString =
-    builder.Configuration.GetConnectionString("yolo") ?? throw new ArgumentException(nameof(connecitonString));
+string connectionString = builder.Configuration.GetConnectionString("yolo") ?? throw new ArgumentException(nameof(connectionString));
 
 // Add services to the container.
 
@@ -15,8 +13,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<IUserRepository>(sp=>
-new UserSqlRepository(connecitonString, sp.GetRequiredService<ILogger<UserSqlRepository>>()));
+builder.Services.AddSingleton<IUserRoleRepository>(sp =>
+new UserRoleSqlRepository(connectionString, sp.GetRequiredService<ILogger<UserRoleSqlRepository>>()));
+
+builder.Services.AddSingleton<IUserRepository>(sp =>
+new UserSqlRepository(connectionString, sp.GetRequiredService<ILogger<UserSqlRepository>>()));
+
+builder.Services.AddSingleton<IPlayerRepository>(sp =>
+new PlayerSqlRepository(connectionString, sp.GetRequiredService<ILogger<PlayerSqlRepository>>()));
 
 var app = builder.Build();
 

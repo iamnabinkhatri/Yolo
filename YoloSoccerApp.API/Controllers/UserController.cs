@@ -74,16 +74,25 @@ namespace YoloSoccerApp.API.Controllers
         [HttpPost("login")]
         public async Task<ActionResult> LoginAsync(string username, string password)
         {
+            bool result = false;
             try
             {
-                bool result = await _IUserrepo.ValidatePassword(username, password);
+                
+                result = await _IUserrepo.ValidatePassword(username, password);
             }
             catch(Exception e)
             {
                 _logger.LogError(e, e.Message);
                 return StatusCode(500);
             }
-            return StatusCode(200);
+            if (result==false)
+            {
+                return StatusCode(401);
+            }
+            else
+            {
+                return StatusCode(200);
+            }
         }
         
     }

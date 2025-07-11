@@ -17,12 +17,17 @@ namespace YoloSoccerApp.Logic
         public int? _zipCode { get; set; }
         public string? _state { get; set; }
         public string? _country { get; set; }
+        public UserRole? _roleId { get; set; }
+
 
         //constructor
         public Users() { }
+        public Users(int id) {
+            this._id = id;
+        }
         public Users(int id, string email, string username, string password,
             string firstName, string lastName, string middleName, int phoneNo,
-            string city, int zipCode, string state, string country) {
+            string city, int zipCode, string state, string country, UserRole roleId) {
             this._id = id;
             this._email = email;
             this._password = password; 
@@ -35,10 +40,11 @@ namespace YoloSoccerApp.Logic
             this._zipCode = zipCode;
             this._state = state;
             this._country = country;
+            this._roleId = roleId;
         }
         public Users( string email, string username, string password,
             string firstName, string lastName, string middleName, int phoneNo,
-            string city, int zipCode, string state, string country)
+            string city, int zipCode, string state, string country, UserRole roleId)
         {
             
             this._email = email;
@@ -52,6 +58,7 @@ namespace YoloSoccerApp.Logic
             this._zipCode = zipCode;
             this._state = state;
             this._country = country;
+            this._roleId = roleId;
         }
 
         //methods
@@ -61,7 +68,7 @@ namespace YoloSoccerApp.Logic
             Password: {this._password}\n Username: {this._username}\n FirstName:{this._firstName}\n
             Middle Name: {this._middleName}\n Last Name: {this._lastName}\n
             Phone No: {this._phoneNo}\n City: {this._city}\n Zipcode: {this._zipCode}\n
-            State: {this._state}\n Country: {this._country}
+            State: {this._state}\n Country: {this._country} \n RoleId: {this._roleId?._id}
             ";
         }
     }
