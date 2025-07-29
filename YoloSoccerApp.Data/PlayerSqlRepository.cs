@@ -22,11 +22,13 @@ namespace YoloSoccerApp.Data
             using SqlConnection connection = new SqlConnection(this._connectionString);
             await connection.OpenAsync();
             Console.WriteLine($"userId: {player._userId._id}");
-            string query = @"INSERT INTO [yolo].[player] (userId, nickname, playerNumber) VALUES (@userId, @nickname, @playerNumber);";
+            string query = @"INSERT INTO [yolo].[player] (userId, nickname, playerNumber, playerRoleId)
+            VALUES (@userId, @nickname, @playerNumber, @playerRoleId);";
             using SqlCommand cmd = new SqlCommand(query,connection);
             cmd.Parameters.AddWithValue("@userId", player._userId._id);
             cmd.Parameters.AddWithValue("@nickname", player._nickname);
             cmd.Parameters.AddWithValue("@playerNumber", player._playerNumber);
+            cmd.Parameters.AddWithValue("@playerRoleId", player._playerRole?._id);
             await cmd.ExecuteNonQueryAsync();
             await connection.CloseAsync();
             _logger.LogInformation("Executed AddPlayerAsync");
@@ -76,7 +78,9 @@ namespace YoloSoccerApp.Data
                 Users user = new Users(userId);
                 string nickname = reader["nickname"].ToString() ?? "";
                 int playerNumber = (int)reader["playerNumber"];
-                players.Add(new Player(Id, user, nickname, playerNumber));
+                int pRoleId = (int)reader["playerRoleId"];
+                PlayerRole pRole = new PlayerRole(pRoleId);
+                players.Add(new Player(Id, user, nickname, playerNumber, pRole));
             }
             await connection.CloseAsync();
             return players;

@@ -31,18 +31,51 @@ CREATE TABLE [yolo].[user](
 );
 GO
 
+ALTER TABLE [yolo].[user] ADD [is_loggedIn] CHAR(1);
+GO
+
+ALTER TABLE [yolo].[user] DROP CONSTRAINT yolo_usr_chk_lgn;
+GO
+
+ALTER TABLE [yolo].[user] ADD CONSTRAINT yolo_usr_default DEFAULT 'N' FOR [is_loggedIn];
+GO
+
+ALTER TABLE [yolo].[user] ADD
+CONSTRAINT yolo_usr_chk_lgn CHECK ([is_loggedIn] IN ('Y', 'N'));
+GO
+ALTER TABLE [yolo].[user] DROP CONSTRAINT yolo_usr_default;
+GO
+ALTER TABLE [yolo].[user] DROP COLUMN [is_loggedIn];
+GO
+
+SELECT name 
+FROM sys.default_constraints WHERE parent_object_id=OBJECT_ID('[yolo].[user]');
+
+CREATE TABLE [yolo].[playerRole](
+    [id] INTEGER IDENTITY,
+    [playerRole] VARCHAR(50) NOT NULL,
+    CONSTRAINT yolo_plyr_rl_pkid PRIMARY KEY ([id])
+);
+GO
+
+ALTER TABLE [yolo].[playerRole] ADD CONSTRAINT yolo_prole_unq UNIQUE([playerRole]);
+GO
+
 CREATE TABLE [yolo].[player](
     [id] INTEGER IDENTITY,
     [userId] INTEGER NOT NULL,
     [nickname] VARCHAR(100),
     [playerNumber] INTEGER NOT NULL,
+    [playerRoleId] INTEGER NOT NULL,
     CONSTRAINT yolo_plyrId_pk PRIMARY KEY ([id]),
-    CONSTRAINT yolo_plyr_fk FOREIGN KEY ([userId]) REFERENCES [yolo].[user](id)
+    CONSTRAINT yolo_plyr_fk FOREIGN KEY ([userId]) REFERENCES [yolo].[user](id),
+    CONSTRAINT yolo_plyr_fk_rid FOREIGN KEY ([playerRoleId]) REFERENCES [yolo].[playerRole](id),
+    CONSTRAINT yolo_plyr_fk_unq UNIQUE([userId])
 );
 GO
 
-ALTER TABLE [yolo].[player] ADD CONSTRAINT yolo_plyr_unq UNIQUE([userId]);
-GO
+-- ALTER TABLE [yolo].[player] ADD CONSTRAINT yolo_plyr_unq UNIQUE([userId]);
+-- GO
 
 CREATE TABLE [yolo].[playerStatics](
     [id] INTEGER IDENTITY,
@@ -54,13 +87,6 @@ CREATE TABLE [yolo].[playerStatics](
     CONSTRAINT yolo_plyr_st_pkid PRIMARY KEY ([id]),
     CONSTRAINT yolo_plyr_st_fk FOREIGN KEY ([playerId]) REFERENCES [yolo].[player](id),
     CONSTRAINT yolo_plyr_st_chk CHECK ([attendance] IN ('YES', 'NO'))
-);
-GO
-
-CREATE TABLE [yolo].[playerRole](
-    [id] INTEGER IDENTITY,
-    [playerRole] VARCHAR(50) NOT NULL,
-    CONSTRAINT yolo_plyr_rl_pkid PRIMARY KEY ([id])
 );
 GO
 
@@ -105,6 +131,18 @@ CREATE TABLE [yolo].[vote](
 );
 GO
 
+CREATE TABLE [yolo].[user_login](
+    [id] INTEGER IDENTITY,
+    [userId] INTEGER NOT NULL,
+    [is_loggedIn] CHAR(1) CONSTRAINT yolo_login_chk_default DEFAULT 'N',
+    [login_started_at] DATETIME DEFAULT GETDATE(),
+    [login_ends_at] DATETIME,
+    CONSTRAINT yolo_login_pkid PRIMARY KEY ([id]),
+    CONSTRAINT yolo_login_usrid_fk FOREIGN KEY ([userId]) REFERENCES [yolo].[user](id),
+    CONSTRAINT yolo_login_chk CHECK ([is_loggedIn] IN ('Y', 'N'))
+);
+GO
+
 ALTER TABLE [yolo].[user] ADD CONSTRAINT yolo_u_unq UNIQUE([username]);
 GO
 
@@ -112,5 +150,11 @@ ALTER TABLE [yolo].[user] ALTER COLUMN password NVARCHAR(500) NOT NULL;
 GO
 
 Drop TABLE [yolo].[user];
+GO
+
+Drop TABLE [yolo].[playerStatics];
+GO
+
+Drop TABLE [yolo].[player];
 GO
 
