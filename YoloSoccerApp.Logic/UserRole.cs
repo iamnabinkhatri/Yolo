@@ -23,7 +23,7 @@ namespace YoloSoccerApp.Logic
         //methods
         public override string ToString()
         {
-            return $@"\nUserRole ID: {this._id} \n RoleType: {this._roleType}";
+            return @$"\nUserRole ID: {this._id} \n RoleType: {this._roleType}";
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.DataProtection.Repositories;
+﻿
 using YoloSoccerApp.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,8 +19,23 @@ new UserRoleSqlRepository(connectionString, sp.GetRequiredService<ILogger<UserRo
 builder.Services.AddSingleton<IUserRepository>(sp =>
 new UserSqlRepository(connectionString, sp.GetRequiredService<ILogger<UserSqlRepository>>()));
 
+builder.Services.AddSingleton<IUserLoginRepository>(sp =>
+new UserLoginSqlRepository(connectionString, sp.GetRequiredService<ILogger<UserLoginSqlRepository>>()));
+
+builder.Services.AddSingleton<IPlayerRoleRepository>(sp =>
+new PlayerRoleSqlRepository(connectionString, sp.GetRequiredService<ILogger<PlayerRoleSqlRepository>>()));
+
 builder.Services.AddSingleton<IPlayerRepository>(sp =>
 new PlayerSqlRepository(connectionString, sp.GetRequiredService<ILogger<PlayerSqlRepository>>()));
+
+builder.Services.AddSingleton<IPlayerStaticsRepository>(sp =>
+new PlayerStaticsSqlRepository(connectionString, sp.GetRequiredService<ILogger<PlayerStaticsSqlRepository>>()));
+
+builder.Services.AddSingleton<IPollRepository>(sp =>
+new PollSqlRepository(connectionString, sp.GetRequiredService<ILogger<PollSqlRepository>>()));
+
+builder.Services.AddSingleton<IPollOptionRepository>(sp =>
+new PollOptionSqlRepository(connectionString, sp.GetRequiredService<ILogger<PollOptionSqlRepository>>()));
 
 var app = builder.Build();
 
@@ -34,7 +49,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
 
 app.MapControllers();
 

@@ -3,27 +3,43 @@
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workbench ActiveDocument="Program.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="../YoloSoccerApp.Data/UserLoginSqlRepository.cs">
     <Files>
-      <File FileName="Program.cs" Line="19" Column="53" />
-      <File FileName="../YoloSoccerApp.Logic/Users.cs" Line="71" Column="6" />
-      <File FileName="../YoloSoccerApp.Data/IUserRepository.cs" Line="10" Column="36" />
-      <File FileName="../YoloSoccerApp.Data/IUserRoleRepository.cs" Line="12" Column="2" />
-      <File FileName="../YoloSoccerApp.Data/UserSqlRepository.cs" Line="49" Column="9" />
-      <File FileName="Controllers/UserController.cs" Line="81" Column="23" />
-      <File FileName="../YoloSoccerApp.Logic/UserRole.cs" Line="2" Column="1" />
-      <File FileName="../YoloSoccerApp.Data/UserRoleSqlRepository.cs" Line="20" Column="57" />
-      <File FileName="../YoloSoccerApp.Data/PasswordHasher.cs" Line="11" Column="27" />
-      <File FileName="Controllers/WeatherForecastController.cs" Line="1" Column="1" />
+      <File FileName="Program.cs" Line="24" Column="1" />
+      <File FileName="../YoloSoccerApp.Logic/Users.cs" Line="26" Column="27" />
+      <File FileName="../YoloSoccerApp.Data/IUserRepository.cs" Line="17" Column="1" />
+      <File FileName="../YoloSoccerApp.Data/IUserRoleRepository.cs" Line="9" Column="14" />
+      <File FileName="../YoloSoccerApp.Data/UserSqlRepository.cs" Line="50" Column="51" />
+      <File FileName="Controllers/UserController.cs" Line="71" Column="36" />
+      <File FileName="../YoloSoccerApp.Logic/UserRole.cs" Line="24" Column="8" />
+      <File FileName="../YoloSoccerApp.Data/UserRoleSqlRepository.cs" Line="22" Column="1" />
+      <File FileName="../YoloSoccerApp.Data/PasswordHasher.cs" />
+      <File FileName="Controllers/WeatherForecastController.cs" />
       <File FileName="YoloSoccerApp.API.http" Line="6" Column="4" />
+      <File FileName="Controllers/UserRoleController.cs" Line="50" Column="17" />
+      <File FileName="../YoloSoccerApp.Logic/Player.cs" Line="37" Column="6" />
+      <File FileName="../YoloSoccerApp.Data/IPlayer.cs" Line="12" Column="44" />
+      <File FileName="../YoloSoccerApp.Data/PlayerSqlRepository.cs" Line="103" Column="14" />
+      <File FileName="Controllers/PlayerController.cs" Line="84" Column="18" />
+      <File FileName="../YoloSoccerApp.Logic/PlayerStatics.cs" Line="40" Column="10" />
+      <File FileName="../YoloSoccerApp.Data/IPlayerStaticsRepository.cs" Line="12" Column="49" />
+      <File FileName="../YoloSoccerApp.Data/PlayerStaticsSqlRepository.cs" Line="84" Column="13" />
+      <File FileName="Controllers/PlayerStaticsController.cs" Line="13" Column="20" />
+      <File FileName="../YoloSoccerApp.Logic/PlayerRole.cs" Line="20" Column="33" />
+      <File FileName="../YoloSoccerApp.Data/IPlayerRole.cs" Line="16" Column="2" />
+      <File FileName="../YoloSoccerApp.Data/PlayerRoleSqlRepository.cs" Line="21" Column="65" />
+      <File FileName="Controllers/PlayerRoleController.cs" Line="101" Column="26" />
+      <File FileName="../YoloSoccerApp.Logic/UserLogin.cs" Line="38" Column="32" />
+      <File FileName="../YoloSoccerApp.Data/IUserLoginRepository.cs" Line="91" Column="51" />
+      <File FileName="../YoloSoccerApp.Data/IUserLoginRepository.cs" Line="13" Column="72" />
+      <File FileName="Controllers/UserLoginController.cs" Line="117" Column="18" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="YoloSoccerApp.API" expanded="True">
-            <Node name="YoloSoccerApp.API">
+            <Node name="YoloSoccerApp.API" selected="True">
               <Node name="Controllers" expanded="True" />
-              <Node name="Program.cs" selected="True" />
             </Node>
           </Node>
         </State>
