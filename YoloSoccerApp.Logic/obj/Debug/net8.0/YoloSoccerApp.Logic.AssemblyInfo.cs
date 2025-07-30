@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("YoloSoccerApp.Logic")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+113f0e27a5bdc5cc3e26eef9d9f34f7a6d0b242e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b6130f598708a0631702682834d907b40eee43a0")]
 [assembly: System.Reflection.AssemblyProductAttribute("YoloSoccerApp.Logic")]
 [assembly: System.Reflection.AssemblyTitleAttribute("YoloSoccerApp.Logic")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
