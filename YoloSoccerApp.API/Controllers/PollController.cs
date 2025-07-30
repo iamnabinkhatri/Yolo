@@ -50,7 +50,6 @@ namespace YoloSoccerApp.API.Controllers
                     int id = (int)poll._id;
                     options = await _ioption.GetAllPollByPollIdAsync(id);
                     pollWithOptions.Add(new PollWithOption { Poll=poll, Options=options});
-
                 }
                 return Ok(pollWithOptions);
 
@@ -59,6 +58,32 @@ namespace YoloSoccerApp.API.Controllers
             {
                 _logger.LogError(e,e.Message);
                 return StatusCode(500,e.Message);
+            }
+        }
+        
+        /*Getting All the polls by specific user*/
+        [HttpGet("[action]/{userId}")]
+        public async Task<ActionResult<IEnumerable<PollWithOption>>> GetAllPollDetailsByUserId(int userId)
+        {
+            try
+            {
+                IEnumerable<Poll> polls;
+                IEnumerable<PollOption> options;
+                var pollWithOptions = new List<PollWithOption>();
+                polls = await _ipoll.GetPollByUserIdAsync(userId);
+                foreach (Poll poll in polls)
+                {
+                    int id = (int)poll._id;
+                    options = await _ioption.GetAllPollByPollIdAsync(id);
+                    pollWithOptions.Add(new PollWithOption { Poll = poll, Options = options });
+
+                }
+                return Ok(pollWithOptions);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, e.Message);
+                return StatusCode(500, e.Message);
             }
         }
 
@@ -70,7 +95,7 @@ namespace YoloSoccerApp.API.Controllers
                 IEnumerable<Poll> polls;
                 IEnumerable<PollOption> options;
                 var pollWithOptions = new List<PollWithOption>();
-                polls = await _ipoll.GetAllPollsAsync();
+                polls = await _ipoll.GetPollByPollIdAsync(pollId);
                 foreach (Poll poll in polls)
                 {
                     int id = (int)poll._id;
@@ -125,16 +150,16 @@ namespace YoloSoccerApp.API.Controllers
         Adding more options after adding it for first time
         */
         [HttpPost("poll-option/{pollId}")]
-        public async Task<ActionResult<bool>> AddPollByIdAsync([FromBody] IEnumerable<PollOption> pollOptionList, int pollId)
+        public async Task<ActionResult<bool>> AddPollByPollIdAsync([FromBody] IEnumerable<PollOption> pollOptionList, int pollId)
         {
             try
             {
-                PollOption opt;
+                PollOption opt= new PollOption();
                 foreach (PollOption p in pollOptionList)
                 {
                     // int PollId = (int)p._pollId._id;
-                    opt = new PollOption(new Poll(pollId),p._option);
-                    bool result = await _ioption.AddPollOptionByPollIdAsync(opt);
+                    opt = new PollOption(new Poll(pollId),p._option!);
+                    bool result = await _ioption!.AddPollOptionByPollIdAsync(opt);
                     if (!result)
                     {
                        return StatusCode(500, false);
@@ -144,10 +169,44 @@ namespace YoloSoccerApp.API.Controllers
             }
             catch (Exception e)
             {
-                _logger.LogError(e, e.Message);
+                _logger!.LogError(e, e.Message);
                 return StatusCode(500, false);
             }
         }
+        
+        [HttpPut("{pollId}")]
+        public async Task<ActionResult<bool>> UpdatePollWithDetailsAsync([FromBody] PollWithOption dto, int pollId)
+        {
+            try
+            {
+                int userId = Convert.ToInt32(dto.Poll._created_by?._id);
+                if (!string.IsNullOrWhiteSpace(dto.Poll._title))
+                {
+                    bool result1 = await _ipoll!.UpdatePollAsync(pollId, userId, dto.Poll);
+                    if (!result1)
+                    {
+                        return StatusCode(500, "Failed to update poll");
+                    }
+                }
+                foreach (PollOption opt in dto.Options)
+                {
+                    int id = Convert.ToInt32(opt._id);
+                    bool result2 = await _ioption!.UpdatePollOptionByIdAsync(id, opt);
+                    if (!result2)
+                    {
+                        return StatusCode(500, $"Failed  to update option with Id: {id}");
+                    }
+                }
+                return StatusCode(200, true);
+            }
+            catch (Exception e)
+            {
+                _logger!.LogError(e, e.Message);
+                return StatusCode(500, e.Message);
+            }
+        }
     }
+    
+    
 }
 
