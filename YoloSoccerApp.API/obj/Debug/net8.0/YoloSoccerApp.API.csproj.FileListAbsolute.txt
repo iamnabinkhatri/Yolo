@@ -85,3 +85,4 @@
 /Users/nabinkhatri/Documents/Programming/C#/dotnet-projects/YoloSoccerApp/YoloSoccerApp.API/obj/Debug/net8.0/YoloSoccerApp.API.pdb
 /Users/nabinkhatri/Documents/Programming/C#/dotnet-projects/YoloSoccerApp/YoloSoccerApp.API/obj/Debug/net8.0/YoloSoccerApp.API.genruntimeconfig.cache
 /Users/nabinkhatri/Documents/Programming/C#/dotnet-projects/YoloSoccerApp/YoloSoccerApp.API/obj/Debug/net8.0/ref/YoloSoccerApp.API.dll
+/Users/nabinkhatri/Documents/Programming/C#/dotnet-projects/YoloSoccerApp/YoloSoccerApp.API/bin/Debug/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
