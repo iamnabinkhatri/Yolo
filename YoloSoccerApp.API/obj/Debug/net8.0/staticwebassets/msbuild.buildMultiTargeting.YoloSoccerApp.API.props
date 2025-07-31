@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="../build/YoloSoccerApp.API.props" />
-</Project>

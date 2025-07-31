@@ -1,8 +1,6 @@
 ﻿using System;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using YoloSoccerApp.API.Services;
 using YoloSoccerApp.Data;
 using YoloSoccerApp.Logic;
 
@@ -14,20 +12,14 @@ namespace YoloSoccerApp.API.Controllers
     {
         private readonly IUserRepository _IUserrepo;
         private readonly ILogger<UserController> _logger;
-        private readonly JwtService  _jwtService;
-        private readonly JwtSettings _jwtSettings;
 
-        public UserController(IUserRepository IUserrepo,
-            ILogger<UserController> logger, JwtService jwtService, JwtSettings jwtSettings)
+        public UserController(IUserRepository IUserrepo, ILogger<UserController> logger)
         {
             this._IUserrepo = IUserrepo;
             this._logger = logger;
-            this._jwtService = jwtService;
-            this._jwtSettings = jwtSettings;
         }
 
         //get all user details
-        [Authorize]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Users>>> GetAllUsersAsync()
         {
@@ -87,43 +79,20 @@ namespace YoloSoccerApp.API.Controllers
             {
                 
                 result = await _IUserrepo.ValidatePassword(username, password);
-                if (result)
-                {
-                    var userId = "123"; // Get from DB based on login
-
-                    var accessToken = _jwtService.GenerateAccessToken(userId);
-                    var refreshToken = _jwtService.GenerateRefreshToken();
-
-                    // 2. Save refresh token to DB
-
-                    // 3. Set cookie
-                    Response.Cookies.Append("access_token", accessToken, new CookieOptions
-                    {
-                        HttpOnly = true,
-                        Secure = true,
-                        Expires = DateTime.UtcNow.AddMinutes(_jwtSettings.AccessTokenExpirationMinutes)
-                    });
-
-                    Response.Cookies.Append("refresh_token", refreshToken, new CookieOptions
-                    {
-                        HttpOnly = true,
-                        Secure = true,
-                        Expires = DateTime.UtcNow.AddDays(_jwtSettings.RefreshTokenExpirationDays)
-                    });
-                    return StatusCode(200);
-                }
-                else
-                {
-                return StatusCode(401, "Username or password is incorrect");
-                    
-                }
             }
             catch(Exception e)
             {
                 _logger.LogError(e, e.Message);
                 return StatusCode(500);
             }
-            
+            if (result==false)
+            {
+                return StatusCode(401);
+            }
+            else
+            {
+                return StatusCode(200);
+            }
         }
         
     }

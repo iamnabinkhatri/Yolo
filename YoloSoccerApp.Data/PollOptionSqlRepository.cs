@@ -91,7 +91,7 @@ namespace YoloSoccerApp.Data
         {
             using SqlConnection connection = new SqlConnection(this._connectionString);
             await connection.OpenAsync();
-            string query = @"UPDATE [yolo].[pollOption] SET [option]=@option WHERE id=@id;";
+            string query = @"UPDATE [yolo].[pollOption] SET option=@option WHERE id=@id;";
             using SqlCommand cmd = new SqlCommand(query, connection);
             cmd.Parameters.AddWithValue("@option", option._option);
             cmd.Parameters.AddWithValue("@id", id);
