@@ -1,4 +1,6 @@
 ﻿
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using YoloSoccerApp.Logic;
 
 namespace YoloSoccerApp.Data

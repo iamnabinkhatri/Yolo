@@ -1,4 +1,6 @@
-﻿namespace YoloSoccerApp.API;
+﻿using System;
+
+namespace YoloSoccerApp.API;
 
 public class WeatherForecast
 {
