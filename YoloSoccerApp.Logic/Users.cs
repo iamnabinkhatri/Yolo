@@ -25,6 +25,12 @@ namespace YoloSoccerApp.Logic
         public Users(int id) {
             this._id = id;
         }
+
+        public Users(string username, string password)
+        {
+            this._username = username;
+            this._password = password;
+        }
         public Users(int id, string email, string username, string password,
             string firstName, string lastName, string middleName, int phoneNo,
             string city, int zipCode, string state, string country, UserRole roleId) {

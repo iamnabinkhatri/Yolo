@@ -151,7 +151,6 @@ namespace YoloSoccerApp.Data
                     Console.WriteLine("Data Stored pass:" + storedPassword);
 
                     if (PasswordHasher.VerifyPassword(password, storedPassword)){
-                        
                         result = true;
                     }
                 }

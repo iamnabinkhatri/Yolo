@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -84,20 +85,20 @@ namespace YoloSoccerApp.API.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult> LoginAsync(string username, string password)
+        public async Task<ActionResult> LoginAsync([FromBody] Users user)
         {
+            Console.WriteLine("password");
             bool result = false;
             try
             {
-                
-                result = await _IUserrepo.ValidatePassword(username, password);
+                Console.WriteLine("username"+user._username+" password"+user._password);
+                result = await _IUserrepo.ValidatePassword(user?._username, user._password);
                 if (result)
                 {
-                    var userId = "123"; // Get from DB based on login
-
+                    var userId = user._username; // Get from DB based on login
                     var accessToken = _jwtService.GenerateAccessToken(userId);
                     var refreshToken = _jwtService.GenerateRefreshToken();
-
+                    Console.WriteLine("cookie");
                     // 2. Save refresh token to DB
 
                     // 3. Set cookie
@@ -129,7 +130,42 @@ namespace YoloSoccerApp.API.Controllers
             }
             
         }
-        
+
+        [HttpGet("check-session")]
+        public async Task<ActionResult<bool>> CheckSessionAsync()
+        {
+            var token = Request.Cookies["access_token"];
+            //  If token is missing → reject
+            if (string.IsNullOrEmpty(token))
+            {
+                return Unauthorized(false);
+            }
+
+            //  If token is invalid → reject
+            var principal = _jwtService.ValidateToken(token);
+            if (principal == null)
+            {
+                return Unauthorized(false);
+            }
+
+            return Ok(true);
+            // var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            // Console.WriteLine(username);
+            // if (string.IsNullOrEmpty(username))
+            // {
+            //     return Unauthorized();
+            // }
+            //
+            // var IsUserExists = await _IUserrepo.CheckUserExists(username);
+            // if (!IsUserExists)
+            // {
+            //     return Unauthorized();
+            // }
+            // else
+            // {
+            //     return Ok(new { isAuthenticated = true });
+            // }
+        }
     }
 }
 
