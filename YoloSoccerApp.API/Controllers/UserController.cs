@@ -141,7 +141,7 @@ namespace YoloSoccerApp.API.Controllers
                 return Unauthorized(false);
             }
 
-            //  If token is invalid → reject
+            //  If token is invalid → reject 
             var principal = _jwtService.ValidateToken(token);
             if (principal == null)
             {
