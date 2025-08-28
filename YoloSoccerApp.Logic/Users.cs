@@ -18,6 +18,11 @@ namespace YoloSoccerApp.Logic
         public string? _state { get; set; }
         public string? _country { get; set; }
         public UserRole? _roleId { get; set; }
+        
+        public DateOnly? _dob { get; set; }
+        
+        public char? _gender { get; set; }
+        
 
 
         //constructor
@@ -33,7 +38,7 @@ namespace YoloSoccerApp.Logic
         }
         public Users(int id, string email, string username, string password,
             string firstName, string lastName, string middleName, int phoneNo,
-            string city, int zipCode, string state, string country, UserRole roleId) {
+            string city, int zipCode, string state, string country, UserRole roleId, DateOnly? dob, char? gender) {
             this._id = id;
             this._email = email;
             this._password = password; 
@@ -47,10 +52,12 @@ namespace YoloSoccerApp.Logic
             this._state = state;
             this._country = country;
             this._roleId = roleId;
+            this._dob = dob;
+            this._gender = gender;
         }
         public Users( string email, string username, string password,
             string firstName, string lastName, string middleName, int phoneNo,
-            string city, int zipCode, string state, string country, UserRole roleId)
+            string city, int zipCode, string state, string country, UserRole roleId, DateOnly? dob, char? gender)
         {
             
             this._email = email;
@@ -65,16 +72,29 @@ namespace YoloSoccerApp.Logic
             this._state = state;
             this._country = country;
             this._roleId = roleId;
+            this._dob = dob;
+            this._gender = gender;
         }
 
         //methods
         public override string ToString()
         {
-            return $@"\nUser ID: {this._id} \n Email: {this._email}\n
-            Password: {this._password}\n Username: {this._username}\n FirstName:{this._firstName}\n
-            Middle Name: {this._middleName}\n Last Name: {this._lastName}\n
-            Phone No: {this._phoneNo}\n City: {this._city}\n Zipcode: {this._zipCode}\n
-            State: {this._state}\n Country: {this._country} \n RoleId: {this._roleId?._id}
+            return $@"
+            User ID: {this._id}
+            Email: {this._email}
+            Password: {this._password}
+            Username: {this._username} 
+            FirstName:{this._firstName}
+            Middle Name: {this._middleName}
+            Last Name: {this._lastName}
+            Phone No: {this._phoneNo}
+            City: {this._city}
+            Zipcode: {this._zipCode}
+            State: {this._state}
+            Country: {this._country}
+            RoleId: {this._roleId?._id}
+            DOB: {this._dob}
+            Gender: {this._gender}
             ";
         }
     }

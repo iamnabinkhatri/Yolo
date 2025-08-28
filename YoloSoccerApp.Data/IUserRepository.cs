@@ -8,6 +8,7 @@ namespace YoloSoccerApp.Data
 	public interface IUserRepository
 	{
         public Task<IEnumerable<Users>> GetAllUsersAsync();
+        public Task<Users> GetUserByUsername(string username);
         public Task AddUserAsync(Users user);
         public Task UpdateUserAsync(string username, Users user);
         public Task<bool> ValidatePassword(string username, string password);

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using YoloSoccerApp.Data;
 using YoloSoccerApp.Logic;
 
@@ -16,27 +14,31 @@ namespace YoloSoccerApp.API.Controllers
     public class PollController : ControllerBase
     {
         private readonly IPollRepository? _ipoll;
+        private readonly IUserRepository? _iuser;
         private readonly IPollOptionRepository? _ioption;
         private readonly ILogger<PollController>? _logger;
-
-        //public Task<IEnumerable<Poll>> GetAllPollsAsync();
-        //public Task<IEnumerable<Poll>> GetPollByUserIdAsync(int userId);
-        //public Task<bool> AddPollAsync(Poll poll);
-        //public Task<bool> UpdatePollAsync(int id, int created_by, Poll poll);
-        //public Task<bool> DeletePollAsync(int id);
-
-        //public Task<IEnumerable<PollOption>> GetAllPollByPollIdAsync(int pollId);
-        //public Task<bool> AddPollOptionByPollIdAsync(PollOption option);
-        //public Task<bool> DeletePollOptionByOptionIdAndPollIdAsync(int id, int pollId);
-        //public Task<bool> UpdatePollOptionByIdAsync(int id, PollOption option);
-
-        public PollController(IPollRepository ipoll, IPollOptionRepository ioption, ILogger<PollController> logger)
+        public PollController(IPollRepository ipoll, IUserRepository iuser, IPollOptionRepository ioption, ILogger<PollController> logger)
         {
             this._ipoll = ipoll;
+            this._iuser = iuser;
             this._ioption = ioption;
             this._logger = logger;
         }
+        
+        
+        [HttpGet("me")]
+        public IActionResult GetCurrentUser()
+        {
+            // This will read the "sub" claim (username in your case)
+            var username = User.FindFirstValue(JwtRegisteredClaimNames.Sub);
+            if (string.IsNullOrEmpty(username))
+            {
+                return Unauthorized("No username found in token.");
+            }
 
+            return Ok(new { Username = username });
+        }
+        
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PollWithOption>>> GetAllPollDetailsAsync()
         {
@@ -122,14 +124,19 @@ namespace YoloSoccerApp.API.Controllers
         {
             try
             {
+                var username = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 PollOption opt;
+                Poll poll = dto.Poll;
                 
-                int newId = await _ipoll.AddPollAsync(dto.Poll);
+                Users user = await _iuser!.GetUserByUsername(username);
+                int id = (int)user._id;
+                poll._created_by = new Users(id);
+                int newId = await _ipoll!.AddPollAsync(poll);
                 bool result = true;
                 foreach (PollOption d in dto.Options)
                 {
                     opt = new PollOption(new Poll(newId), d._option);
-                    result = await _ioption.AddPollOptionByPollIdAsync(opt);
+                    result = await _ioption!.AddPollOptionByPollIdAsync(opt);
                 }
                 if (result)
                 {

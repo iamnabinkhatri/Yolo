@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Data;
+using System.Data.SqlTypes;
+using System.Globalization;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
 using YoloSoccerApp.Logic;
@@ -35,6 +35,7 @@ namespace YoloSoccerApp.Data
                 int created_by = (int)reader["created_by"];
                 DateTime created_at = reader["created_at"] != DBNull.Value ?
                     Convert.ToDateTime(reader["created_at"]) : DateTime.MinValue;
+                DateTime start_at = reader["start_at"] != DBNull.Value? Convert.ToDateTime(reader["start_at"]) : DateTime.MinValue;
                 DateTime close_at = reader["close_at"] != DBNull.Value ?
                     Convert.ToDateTime(reader["close_at"]) : DateTime.MinValue;
                 char is_closed = 'N';
@@ -59,9 +60,12 @@ namespace YoloSoccerApp.Data
                         is_shareable = flag[0];
                     }
                 }
+                int communityId = reader["communityId"] != DBNull.Value ? Convert.ToInt32(reader["communityId"]) : 0;
+                Community community = new Community(communityId);
+                
 
                 polls.Add(new Poll(id, title, description, new Users(created_by),
-                    created_at, close_at, is_closed, latitude, longitude, is_shareable));
+                    created_at, start_at, close_at, is_closed, latitude, longitude, is_shareable, community));
             } 
             await connection.CloseAsync();
             return polls;
@@ -69,22 +73,48 @@ namespace YoloSoccerApp.Data
 
         public async Task<int> AddPollAsync(Poll poll)
         {
+            DateTime created_at = poll._created_at;
+            DateTime start_at = poll._start_at;
+            DateTime close_at = poll._close_at;
+            // Ensure within SQL Server datetime range
+            if (created_at < (DateTime)System.Data.SqlTypes.SqlDateTime.MinValue)
+                created_at = (DateTime)System.Data.SqlTypes.SqlDateTime.MinValue;
+
+            if (created_at > (DateTime)System.Data.SqlTypes.SqlDateTime.MaxValue)
+                created_at = (DateTime)System.Data.SqlTypes.SqlDateTime.MaxValue;
+            
+            if (start_at < (DateTime)System.Data.SqlTypes.SqlDateTime.MinValue)
+                start_at = (DateTime)System.Data.SqlTypes.SqlDateTime.MinValue;
+
+            if (start_at > (DateTime)System.Data.SqlTypes.SqlDateTime.MaxValue)
+                start_at = (DateTime)System.Data.SqlTypes.SqlDateTime.MaxValue;
+            
+            if (close_at < (DateTime)System.Data.SqlTypes.SqlDateTime.MinValue)
+                close_at = (DateTime)System.Data.SqlTypes.SqlDateTime.MinValue;
+
+            if (close_at > (DateTime)System.Data.SqlTypes.SqlDateTime.MaxValue)
+                close_at = (DateTime)System.Data.SqlTypes.SqlDateTime.MaxValue;
+            
+            Console.WriteLine("adding poll" + poll._created_by._id + "sqlddate: "+created_at + " start date: " + start_at + " end date: "+ close_at);
             using SqlConnection connection = new SqlConnection(this._connectionString);
             await connection.OpenAsync();
-            string query = @"INSERT INTO [yolo].[poll] (title, description, created_by, created_at, close_at,
-            is_closed, latitude, longitude, is_shareable) VALUES (@title, @description, @created_by,
-            @created_at, @close_at, @is_closed, @latitude, @longitude, @is_shareable);
+            string query = @"INSERT INTO [yolo].[poll] (title, description, created_by, created_at, start_at, close_at,
+            is_closed, latitude, longitude, is_shareable, communityId) VALUES (@title, @description, @created_by,
+            @created_at, @start_at, @close_at, @is_closed, @latitude, @longitude, @is_shareable, @communityId);
             SELECT CAST(SCOPE_IDENTITY() AS int);";
             using SqlCommand cmd = new SqlCommand(query, connection);
+            
             cmd.Parameters.AddWithValue("@title", poll._title);
             cmd.Parameters.AddWithValue("@description", poll._description);
             cmd.Parameters.AddWithValue("@created_by", poll._created_by?._id);
-            cmd.Parameters.AddWithValue("@created_at", poll._created_at);
-            cmd.Parameters.AddWithValue("@close_at", poll._close_at);
+            cmd.Parameters.AddWithValue("@created_at", SqlDbType.DateTime).Value = created_at;
+            cmd.Parameters.AddWithValue("@start_at", SqlDbType.DateTime).Value = start_at;
+            cmd.Parameters.AddWithValue("@close_at", SqlDbType.DateTime).Value = close_at;
             cmd.Parameters.AddWithValue("@is_closed", poll._is_closed);
             cmd.Parameters.AddWithValue("@latitude", poll._latitude);
             cmd.Parameters.AddWithValue("@longitude", poll._longitude);
             cmd.Parameters.AddWithValue("@is_shareable", poll._is_shareable);
+            cmd.Parameters.AddWithValue("@ communityId", poll._community._id);
             //int affectedRows = await cmd.ExecuteNonQueryAsync();
             //int newId = Convert.ToInt32(await cmd.ExecuteScalarAsync());
             object? result = await cmd.ExecuteScalarAsync();
@@ -141,6 +171,8 @@ namespace YoloSoccerApp.Data
                 int created_by = (int)reader["created_by"];
                 DateTime created_at = reader["created_at"] != DBNull.Value ?
                     Convert.ToDateTime(reader["created_at"]) : DateTime.MinValue;
+                DateTime start_at = reader["start_at"] != DBNull.Value ?
+                    Convert.ToDateTime(reader["start_at"]) : DateTime.MinValue;
                 DateTime close_at = reader["close_at"] != DBNull.Value ?
                     Convert.ToDateTime(reader["close_at"]) : DateTime.MinValue;
                 char is_closed = 'N';
@@ -165,9 +197,13 @@ namespace YoloSoccerApp.Data
                         is_shareable = flag[0];
                     }
                 }
+                int  communityId = reader["community_id"] != DBNull.Value ?
+                    Convert.ToInt32(reader["community_id"]) : 0;
+                Community community = new Community(communityId);
+                
 
                 polls.Add(new Poll(id,title,description,new Users(created_by),
-                    created_at,close_at,is_closed,latitude,longitude,is_shareable));
+                    created_at, start_at, close_at,is_closed,latitude,longitude,is_shareable,community));
             }
             await connection.CloseAsync();
             return polls;
@@ -190,6 +226,8 @@ namespace YoloSoccerApp.Data
                 int created_by = (int)reader["created_by"];
                 DateTime created_at = reader["created_at"] != DBNull.Value ?
                     Convert.ToDateTime(reader["created_at"]) : DateTime.MinValue;
+                DateTime start_at = reader["start_at"] != DBNull.Value ?
+                    Convert.ToDateTime(reader["start_at"]) : DateTime.MinValue;
                 DateTime close_at = reader["close_at"] != DBNull.Value ?
                     Convert.ToDateTime(reader["close_at"]) : DateTime.MinValue;
                 char is_closed = 'N';
@@ -214,9 +252,12 @@ namespace YoloSoccerApp.Data
                         is_shareable = flag[0];
                     }
                 }
+                int   communityId = reader["community_id"] != DBNull.Value ?   
+                    Convert.ToInt32(reader["community_id"]) : 0;
+                Community community = new Community(communityId);
 
                 polls.Add(new Poll(id, title, description, new Users(created_by),
-                    created_at, close_at, is_closed, latitude, longitude, is_shareable));
+                    created_at, start_at, close_at, is_closed, latitude, longitude, is_shareable, community));
             } 
             await connection.CloseAsync();
             return polls;
@@ -243,6 +284,11 @@ namespace YoloSoccerApp.Data
             {
                 updates.Add("created_at = @created_at");
                 parameters.Add(new SqlParameter("@created_at", poll._created_at));
+            }
+            if (poll._start_at != null)
+            {
+                updates.Add("start_at = @start_at");
+                parameters.Add(new SqlParameter("@start_at", poll._created_at));
             }
             if (poll._close_at != null)
             {

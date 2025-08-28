@@ -44,11 +44,46 @@ namespace YoloSoccerApp.Data
                 string country = read["country"].ToString() ?? "";
                 int roleId = (int)read["roleId"];
                 UserRole userRole = new UserRole(roleId, "");
-                users.Add(new Users(Id,email,username,password,firstName,lastName,middleName,phoneNo,city,zipCode,state,country, userRole));
+                DateOnly dob =  (DateOnly)read["dob"];
+                char gender = (char)read["gender"];
+                users.Add(new Users(Id,email,username,password,firstName,lastName,middleName,phoneNo,city,zipCode,state,country, userRole,dob,gender));
             }
             await connection.CloseAsync();
             return users; 
          }
+
+        public async Task<Users> GetUserByUsername(string username)
+        {
+            using SqlConnection connection = new SqlConnection(this._connectionString);
+            await connection.OpenAsync();
+            string query = @"SELECT * FROM [yolo].[user] WHERE username=@username;";
+            using SqlCommand cmd = new SqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@username", username);
+            using SqlDataReader read = await cmd.ExecuteReaderAsync();
+            Users user = new Users();
+            while (await read.ReadAsync())
+            {
+                int Id = (int)read["id"];
+                string email = read["email"].ToString() ?? "";
+                string password = read["password"].ToString() ?? "";
+                string name = read["username"].ToString() ?? "";
+                string firstName = read["firstName"].ToString() ?? "";
+                string middleName = read["middleName"].ToString() ?? "";
+                string lastName = read["lastName"].ToString() ?? "";
+                int phoneNo = (int)read["phoneNo"];
+                string city = read["city"].ToString() ?? "";
+                int zipCode = (int)read["zipCode"];
+                string state = read["state"].ToString() ?? "";
+                string country = read["country"].ToString() ?? "";
+                int roleId = (int)read["roleId"];
+                UserRole userRole = new UserRole(roleId, "");
+                DateOnly dob =  (DateOnly)read["dob"];
+                char gender = (char)read["gender"];
+                user = new  Users(Id,email,name,password,firstName,lastName,middleName,phoneNo,city,zipCode,state,country, userRole, dob,gender);
+            }
+            await connection.CloseAsync();
+            return user;
+        }
 
         public async Task AddUserAsync(Users user)
             
@@ -57,7 +92,11 @@ namespace YoloSoccerApp.Data
             UserRole userRole = new UserRole();
              using SqlConnection connection = new SqlConnection(this._connectionString);
             await connection.OpenAsync();
-            string query = @"INSERT INTO [yolo].[user] (email,username,password,firstName,lastName,middleName,phoneNo,city,zipCode,state,country,roleId) VALUES (@email,@username,@password,@firstName,@lastName,@middleName,@phoneNo,@city,@zipCode,@state,@country, @userRole);";
+            string query = @"INSERT INTO [yolo].[user] 
+             (email,username,password,firstName,lastName,middleName,phoneNo,city,zipCode,
+              state,country,roleId,dob,gender) 
+             VALUES (@email,@username,@password,@firstName,@lastName,@middleName,@phoneNo,
+                 @city,@zipCode,@state,@country, @userRole, @dob,@gender);";
             using SqlCommand cmd = new SqlCommand(query, connection);
             cmd.Parameters.AddWithValue("@email", user._email);
             cmd.Parameters.AddWithValue("@password", password);
@@ -71,6 +110,8 @@ namespace YoloSoccerApp.Data
             cmd.Parameters.AddWithValue("@state", user._state);
             cmd.Parameters.AddWithValue("@country", user._country);
             cmd.Parameters.AddWithValue("@userRole", user._roleId?._id);
+            cmd.Parameters.AddWithValue("@dob", user._dob);
+            cmd.Parameters.AddWithValue("@gender", user._gender);
             await cmd.ExecuteNonQueryAsync();
             await connection.CloseAsync();
 
@@ -80,7 +121,11 @@ namespace YoloSoccerApp.Data
         {
             using SqlConnection connection = new SqlConnection(this._connectionString);
             await connection.OpenAsync();
-            string query = @"UPDATE [yolo].[user] SET email=@email, password=@password,username=@username, firstName=@firstName,middleName=@middleName,lastName=@lastName, phoneNo=@phoneNo, city=@city, zipCode=@zipCode, state=@state, country=@country WHERE username=@condition;";
+            string query = @"UPDATE [yolo].[user] SET email=@email, password=@password,
+                         username=@username, firstName=@firstName,middleName=@middleName,
+                         lastName=@lastName, phoneNo=@phoneNo, city=@city, 
+                         zipCode=@zipCode, state=@state, country=@country, dob=@dob, gender=@gender
+                     WHERE username=@condition;";
             using SqlCommand cmd = new SqlCommand(query, connection);
             if(user._email != null)
             {
@@ -125,6 +170,16 @@ namespace YoloSoccerApp.Data
             if(user._country != null)
             {
                 cmd.Parameters.AddWithValue("@country", user._country);
+            }
+
+            if (user._dob != null)
+            {
+                cmd.Parameters.AddWithValue("@dob", user._dob);
+            }
+
+            if (user._gender != null)
+            {
+                cmd.Parameters.AddWithValue("@gender", user._gender);
             }
             cmd.Parameters.AddWithValue("@condition", user._username);
             await cmd.ExecuteNonQueryAsync();

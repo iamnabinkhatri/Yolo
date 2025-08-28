@@ -51,6 +51,23 @@ namespace YoloSoccerApp.API.Controllers
             return users.ToList();
         }
 
+        [HttpGet("get/{username}")]
+        public async Task<Users> GetUserByUsername(string username)
+        {
+            Users user;
+            try
+            {
+                user = await _IUserrepo.GetUserByUsername(username);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, e.Message);
+                return null;
+            }
+
+            return user;
+        }
+
         [HttpPost]
         public async Task<ActionResult> AddUsersAsync([FromBody] Users value)
         {
@@ -83,7 +100,7 @@ namespace YoloSoccerApp.API.Controllers
             }
             return StatusCode(200);
         }
-
+        
         [HttpPost("login")]
         public async Task<ActionResult> LoginAsync([FromBody] Users user)
         {
@@ -91,12 +108,13 @@ namespace YoloSoccerApp.API.Controllers
             bool result = false;
             try
             {
+                
                 Console.WriteLine("username"+user._username+" password"+user._password);
                 result = await _IUserrepo.ValidatePassword(user?._username, user._password);
                 if (result)
                 {
-                    var userId = user._username; // Get from DB based on login
-                    var accessToken = _jwtService.GenerateAccessToken(userId);
+                    var username = user._username; // Get from DB based on login
+                    var accessToken = _jwtService.GenerateAccessToken(username);
                     var refreshToken = _jwtService.GenerateRefreshToken();
                     Console.WriteLine("cookie");
                     // 2. Save refresh token to DB
@@ -119,7 +137,7 @@ namespace YoloSoccerApp.API.Controllers
                 }
                 else
                 {
-                return StatusCode(401, "Username or password is incorrect");
+                return StatusCode(401, "Username/Password is incorrect");
                     
                 }
             }

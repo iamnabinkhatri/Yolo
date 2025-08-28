@@ -8,11 +8,13 @@ namespace YoloSoccerApp.Logic
 		public string? _description { get; set; }
 		public Users? _created_by { get; set; }
 		public DateTime _created_at { get; set; }
+		public DateTime _start_at{ get; set; }
 		public DateTime _close_at { get; set; }
 		public char? _is_closed { get; set; }
 		public decimal _latitude { get; set; }
 		public decimal _longitude { get; set; }
 		public char? _is_shareable { get; set; }
+		public Community? _community { get; set; }		
 
 		public Poll() { }
 
@@ -23,8 +25,8 @@ namespace YoloSoccerApp.Logic
 		}
 
 		public Poll(int id, string title, string description, Users created_by,
-			DateTime created_at, DateTime close_at, char is_closed,
-			decimal latitude, decimal longitude, char is_shareable
+			DateTime created_at, DateTime start_at, DateTime close_at, char is_closed,
+			decimal latitude, decimal longitude, char is_shareable, Community community
 		)
 		{
 			this._id = id;
@@ -32,42 +34,48 @@ namespace YoloSoccerApp.Logic
 			this._description = description;
 			this._created_by = created_by;
 			this._created_at = created_at;
+			this._start_at = start_at;
 			this._close_at = close_at;
 			this._is_closed = is_closed;
 			this._latitude = latitude;
 			this._longitude = longitude;
 			this._is_shareable = is_shareable;
+			this._community = community;
 		}
 
         public Poll(string title, string description, Users created_by,
-            DateTime created_at, DateTime close_at, char is_closed,
-            decimal latitude, decimal longitude, char is_shareable
+            DateTime created_at, DateTime start_at ,DateTime close_at, char is_closed,
+            decimal latitude, decimal longitude, char is_shareable, Community community
         )
         {
             this._title = title;
             this._description = description;
             this._created_by = created_by;
             this._created_at = created_at;
+			this._start_at = start_at;
             this._close_at = close_at;
             this._is_closed = is_closed;
             this._latitude = latitude;
             this._longitude = longitude;
             this._is_shareable = is_shareable;
+            this._community = community;
         }
 
         public Poll(string title, string description,
-            DateTime created_at, DateTime close_at, char is_closed,
-            decimal latitude, decimal longitude, char is_shareable
+            DateTime created_at,DateTime start_at, DateTime close_at, char is_closed,
+            decimal latitude, decimal longitude, char is_shareable, Community community
         )
         {
             this._title = title;
             this._description = description;
             this._created_at = created_at;
+            this._start_at = start_at;
             this._close_at = close_at;
             this._is_closed = is_closed;
             this._latitude = latitude;
             this._longitude = longitude;
             this._is_shareable = is_shareable;
+            this._community = community;
         }
 
         public override string ToString()
@@ -78,10 +86,12 @@ namespace YoloSoccerApp.Logic
 			Description: {this._description}
 			Created By: {this._created_by}
 			Created AT: {this._created_at}
+			Poll Start AT: {this._start_at} 
 			Closed AT: {this._close_at}
 			Latitude: {this._latitude}
 			Longitude: {this._longitude}
 			Is Shareable: {this._is_shareable}
+			Community: {this._community}
 			";
         }
     }

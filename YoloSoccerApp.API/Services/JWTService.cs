@@ -42,7 +42,7 @@ public class JwtService
     {
         return Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
     }
-
+    
     public ClaimsPrincipal? ValidateToken(string token)
     {
         var tokenHandler = new JwtSecurityTokenHandler();

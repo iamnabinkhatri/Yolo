@@ -60,16 +60,19 @@ builder.Services.AddAuthentication(options =>
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = jwtSettings.Issuer,
-            ValidAudience = jwtSettings.Audience,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key)),
+            ValidIssuer = jwtSettings?.Issuer,
+            ValidAudience = jwtSettings?.Audience,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings!.Key)),
             ClockSkew = TimeSpan.Zero
         };
         options.Events = new JwtBearerEvents
         {
             OnMessageReceived = context =>
             {
-                context.Token = context.Request.Cookies["access_token"];
+                if (context.Request.Cookies.ContainsKey("access_token"))
+                {
+                    context.Token = context.Request.Cookies["access_token"];
+                }
                 return Task.CompletedTask;
             }
         };
@@ -101,6 +104,9 @@ new PollSqlRepository(connectionString, sp.GetRequiredService<ILogger<PollSqlRep
 builder.Services.AddSingleton<IPollOptionRepository>(sp =>
 new PollOptionSqlRepository(connectionString, sp.GetRequiredService<ILogger<PollOptionSqlRepository>>()));
 
+builder.Services.AddSingleton<ICommunityRepository>(sp =>
+    new CommunitySqlRepository(connectionString, sp.GetRequiredService<ILogger<CommunitySqlRepository>>()));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -109,7 +115,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
 
 app.UseCors("AllowAngularApp");
 app.UseHttpsRedirection();
